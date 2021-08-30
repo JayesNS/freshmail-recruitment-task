@@ -1,0 +1,9 @@
+#game {
+  display: flex;
+}
+
+#game > div {
+  background-color: antiquewhite;
+  width: 400px;
+  height: 400px;
+}
