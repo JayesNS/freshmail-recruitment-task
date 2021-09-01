@@ -28,28 +28,18 @@ class Game {
     console.log('reset');
   }
 
-  initializeGameBoard(element, childType = 'div') {
-    if (!element) {
-      throw new Error('\'element\' cannot be null');
-    }
-
-    const [width, height] = this.boardSize;
-
-    element.style.display = 'grid';
-    element.style.gap = '8px';
-    element.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
-    element.style.gridTemplateRows = `repeat(${height}, 1fr)`;
-    const boardName = element.id;
-
-    new Array(width * height).fill(null).forEach((_, index) => {
-      const square = document.createElement(childType);
-      // TODO: If must go
-      if (childType == 'button') {
-        square.value = index;
+  initializeGameBoard(parent, elementType = 'div') {
+    let elementFactory = (index) => {
+      const element = document.createElement(elementType);
+      if (elementType == 'button') {
+        element.value = index;
       } else {
-        square.id = `${boardName}-${index}`;
+        const boardName = parent.id;
+        element.id = `${boardName}-${index}`;
       }
-      element.appendChild(square);
-    })
+      return element;
+    };
+
+    fillGrid(parent, elementFactory, this.boardSize);
   }
 }
