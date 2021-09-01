@@ -3,7 +3,15 @@
 }
 
 #game > div {
-  background-color: antiquewhite;
   width: 400px;
   height: 400px;
+}
+
+#reference-sequence > div {
+  background: lightgrey;
+  transition: 500ms ease-in;
+}
+
+#reference-sequence > div.highlighted {
+  background: red;
 }

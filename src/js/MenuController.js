@@ -10,12 +10,17 @@ class MenuController {
   }
 
   initialize(config) {
-    const {maxDifficulty = 5} = config;
+    const {maxDifficulty = 10, defaultDifficulty = 5, onStart, onReset} = config;
 
-    this.initializeDifficultyOptions(maxDifficulty);
+    this.initializeDifficultyOptions(maxDifficulty, defaultDifficulty);
+
+    if (!onStart || !onReset) {
+      throw Error('Both \'onStart\' and \'onReset\' must be provided in config')
+    }
+    this.addEventListeners(onStart, onReset);
   }
 
-  initializeDifficultyOptions(maxDifficulty) {
+  initializeDifficultyOptions(maxDifficulty, defaultDifficulty) {
     new Array(maxDifficulty).fill(null).forEach((_, index) => {
       const difficulty = index + 1;
 
@@ -25,5 +30,18 @@ class MenuController {
 
       this.difficultySelect.appendChild(option)
     });
+
+    if (defaultDifficulty < maxDifficulty) {
+      this.difficultySelect.value = defaultDifficulty;
+    }
+  }
+
+  addEventListeners(onStart, onReset) {
+    this.startButton.addEventListener('click', onStart);
+    this.resetButton.addEventListener('click', onReset);
+  }
+
+  getDifficulty() {
+    return parseInt(this.difficultySelect.value);
   }
 }
