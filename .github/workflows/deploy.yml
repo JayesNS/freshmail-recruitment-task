@@ -8,6 +8,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: log untrusted output
+        run: 
+          echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
+          echo "untrusted output"
+          echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Deploy
