@@ -1,11 +1,45 @@
 class Sequence {
-  constructor({length, boardSize: [width, height]}) {
+  constructor({length = 1, maxValue = 0}) {
     this.length = length;
+    this.maxValue - maxValue;
     this.currentLength = 1;
+    this.userInput = [];
 
-    this.generate(width * height);
-    console.log(this.sequence);
-    this.showSequence(length);
+    this.initialize();
+
+    this.generate(maxValue);
+    this.showSequence(this.currentLength);
+  }
+
+  initialize() {
+    const boxes = Array.from(document.querySelectorAll('#user-sequence > *'));
+    boxes.forEach(box => {
+      box.addEventListener('click', ({target}) => {
+        const value = parseInt(target.value);
+        this.userInput.push(value);
+        this.checkUserInput(this.userInput, this.sequence);
+      })
+    });
+  }
+
+  checkUserInput(userInput, sequence) {
+    if (userInput.join(',') !== [...sequence].slice(0, userInput.length).join(',')) {
+      // TODO: Create proper handling of losing game
+      alert('game over')
+      this.generate(this.maxValue);
+      return;
+    }
+
+    if (userInput.join(',') === [...sequence].join(',')) {
+      alert('winner winner chicken dinner!');
+      return;
+    }
+
+    if (userInput.length === this.currentLength) {
+      console.log('everything ok, next level');
+      this.userInput = [];
+      this.showSequence(++this.currentLength);
+    }
   }
 
   generate(max) {
@@ -21,13 +55,14 @@ class Sequence {
   showSequence(length = this.currentLength) {
     let counter = 0;
     this.timer = setInterval(() => {
-      this.highlightBox(this.sequence[counter++]);
-      console.log(counter, length);
       if (counter >= length) {
         clearInterval(this.timer);
         this.clearBoxes();
+        return;
       }
-    }, 600);
+      this.highlightBox(this.sequence[counter]);
+      counter++;
+    }, 500);
   }
 
   clearBoxes() {
@@ -39,6 +74,5 @@ class Sequence {
     const box = document.querySelector('#reference-sequence').children[boxId];
     this.clearBoxes();
     box.className = 'highlighted';
-    console.log(box);
   }
 }

@@ -21,7 +21,7 @@ class Game {
   }
 
   start() {
-    this.sequence = new Sequence({length: this.menu.getDifficulty(), boardSize: this.boardSize});
+    this.sequence = new Sequence({length: this.menu.getDifficulty(), maxValue: this.boardSize[0] * this.boardSize[1]});
   }
 
   reset() {
@@ -43,7 +43,12 @@ class Game {
 
     new Array(width * height).fill(null).forEach((_, index) => {
       const square = document.createElement(childType);
-      square.id = `${boardName}-${index}`;
+      // TODO: If must go
+      if (childType == 'button') {
+        square.value = index;
+      } else {
+        square.id = `${boardName}-${index}`;
+      }
       element.appendChild(square);
     })
   }
