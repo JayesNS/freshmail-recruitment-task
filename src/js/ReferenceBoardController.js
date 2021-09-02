@@ -1,8 +1,6 @@
 class ReferenceBoardController {
   constructor(config) {
-    const {boardSize} = config;
-
-    this.boardSize = boardSize;
+    this.config = config;
 
     this.initialize();
   }
@@ -10,6 +8,10 @@ class ReferenceBoardController {
   initialize() {
     this.referenceBoard = document.querySelector('#reference-sequence');
 
+    this.initializeBoard();
+  }
+
+  initializeBoard() {
     let elementFactory = (index) => {
       const element = document.createElement('div');
       const boardName = parent.id;
@@ -20,7 +22,7 @@ class ReferenceBoardController {
       return element;
     };
 
-    fillGrid(this.referenceBoard, elementFactory, this.boardSize);
+    fillGrid(this.referenceBoard, elementFactory, this.config.boardSize);
   }
 
   setSequence(sequence) {
@@ -36,14 +38,12 @@ class ReferenceBoardController {
       }
       this.highlightBox(this.sequence.sequence[counter]);
       counter++;
-    }, 700);
-
-
+    }, this.config.highlightTime * 1.25);
   }
 
   highlightBox(elementId) {
     const element = this.referenceBoard.children[elementId];
-    element.style.animation = 'highlight ease-in-out 500ms';
+    element.style.animation = `highlight ease-in-out ${this.config.highlightTime}ms`;
   }
 
   clearHighlight(element) {
