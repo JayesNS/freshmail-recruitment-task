@@ -13,9 +13,22 @@
 
 #reference-sequence > div {
   background: lightgrey;
-  transition: 500ms ease-in;
 }
 
-#reference-sequence > div.highlighted {
-  background: red;
+@keyframes highlight {
+  0% {
+    background: lightgrey;
+  } 
+
+  10% {
+    background: red;
+  }
+
+  90% {
+    background: red;
+  }
+
+  100% {
+    background: lightgrey;
+  } 
 }

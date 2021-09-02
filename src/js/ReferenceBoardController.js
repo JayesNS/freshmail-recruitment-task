@@ -14,6 +14,9 @@ class ReferenceBoardController {
       const element = document.createElement('div');
       const boardName = parent.id;
       element.id = `${boardName}-${index}`;
+      element.addEventListener('animationend', ({target}) => {
+        this.clearHighlight(target);
+      })
       return element;
     };
 
@@ -29,22 +32,21 @@ class ReferenceBoardController {
     this.timer = setInterval(() => {
       if (counter >= length) {
         clearInterval(this.timer);
-        this.clearBoxes();
         return;
       }
       this.highlightBox(this.sequence.sequence[counter]);
       counter++;
-    }, 500);
+    }, 700);
+
+
   }
 
-  clearBoxes() {
-    const boxes = Array.from(this.referenceBoard.children);
-    boxes.forEach(box => box.className = '');
+  highlightBox(elementId) {
+    const element = this.referenceBoard.children[elementId];
+    element.style.animation = 'highlight ease-in-out 500ms';
   }
 
-  highlightBox(boxId) {
-    const box = this.referenceBoard.children[boxId];
-    this.clearBoxes();
-    box.className = 'highlighted';
+  clearHighlight(element) {
+    element.style.animation = '';
   }
 }
