@@ -6,7 +6,7 @@ class ReferenceBoardController {
   }
 
   initialize() {
-    this.referenceBoard = document.querySelector('#reference-sequence');
+    this.referenceBoard = document.querySelector('#reference-board');
 
     this.initializeBoard();
   }
@@ -14,7 +14,7 @@ class ReferenceBoardController {
   initializeBoard() {
     let elementFactory = (index) => {
       const element = document.createElement('div');
-      const boardName = parent.id;
+      const boardName = this.referenceBoard.id;
       element.id = `${boardName}-${index}`;
       element.addEventListener('animationend', ({target}) => {
         this.clearHighlight(target);

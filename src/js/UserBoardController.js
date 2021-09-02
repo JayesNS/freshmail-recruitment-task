@@ -10,7 +10,7 @@ class UserBoardController {
   initialize(config) {
     const {onUserInput} = config;
 
-    this.userBoard = document.querySelector('#user-sequence');
+    this.userBoard = document.querySelector('#user-board');
 
     this.initializeBoard();
 
