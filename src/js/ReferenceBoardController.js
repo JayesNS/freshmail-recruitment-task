@@ -33,7 +33,7 @@ class ReferenceBoardController {
     let counter = 0;
     this.timer = setInterval(() => {
       if (counter >= length) {
-        clearInterval(this.timer);
+        this.clear()
         return;
       }
       this.highlightBox(this.sequence.sequence[counter]);
@@ -48,5 +48,9 @@ class ReferenceBoardController {
 
   clearHighlight(element) {
     element.style.animation = '';
+  }
+
+  clear() {
+    clearInterval(this.timer);
   }
 }

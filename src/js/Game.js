@@ -65,18 +65,14 @@ class Game {
     this.play();
   }
 
-  // Cannot figure out the difference between start and reset :(
   reset() {
     if (this.state !== GameState.PLAYING) {
       console.warn('Game is not started cannot reset');
     }
 
-    this.sequence = new Sequence({
-      length: this.menu.getDifficulty(),
-      maxValue: this.getTileAmount()
-    });
-    this.referenceBoard.setSequence(this.sequence);
-    this.play();
+    this.referenceBoard.clear();
+    this.userInput = [];
+    this.state = GameState.AWAITING;
   }
 
   getTileAmount() {

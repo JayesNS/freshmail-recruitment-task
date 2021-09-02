@@ -14,11 +14,26 @@
   --border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#game-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 #game {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+  flex-grow: 1;
+  align-content: center;
 }
 
 #game > div {
